@@ -13,6 +13,14 @@ public abstract class Module : MonoBehaviour
     public Vector3 pos;
     public Quaternion rot;
     public float constant = 5;
+    public int health = 3;
+
+    public delegate void OnDestroyedHandler(Module mod);
+    public event OnDestroyedHandler OnDestroyed;
+
+    
+    public delegate void OnDamageHandler(Module mod);
+    public event OnDamageHandler OnHealthChange;
 
     private void Start() {
         ResetPos();
@@ -29,6 +37,19 @@ public abstract class Module : MonoBehaviour
 
     private void Update() {
         if(Input.GetKey(control)) Action();
+    }
+
+    void OnCollisionEnter2D(Collision2D other) {
+        if(other.gameObject.CompareTag("enemy")){
+            health -= 1;
+            if(OnHealthChange != null) OnHealthChange(this);
+            Debug.Log("Module " + type + " hit!");
+        }    
+        if(health <= 0) Destroy(this.gameObject);
+    }
+
+    private void OnDestroy() {
+        if(OnDestroyed != null) OnDestroyed(this);
     }
 
     public abstract void Action();

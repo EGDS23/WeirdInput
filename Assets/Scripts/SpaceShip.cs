@@ -16,27 +16,34 @@ public enum ModuleType
 
 public class SpaceShip : MonoBehaviour
 {
-    public Queue<Module> modules;
+    [SerializeField] ShipCore core;
+    [SerializeField] GameObject shipUI;
+
+    Dictionary<ModuleType, ModuleUI> moduleUIs;
+    public List<Module> modules;
     int moduleMask = 0;
+    int moduleLayer = 7;
     float retireTimer = 0;
     
     // Start is called before the first frame update
     void Start()
     {
-        modules = new Queue<Module>();
+        moduleUIs = new Dictionary<ModuleType, ModuleUI>();
+        ModuleUI[] ui = shipUI.GetComponentsInChildren<ModuleUI>();
+        foreach (ModuleUI m in ui)
+        {
+            if(moduleUIs.ContainsKey(m.type)) Debug.LogError("ModuleUI " + m.type + " already exists!");
+            moduleUIs.Add(m.type, m);
+            m.UpdateInventory(0);
+        }
+
+        modules = new List<Module>();
         Module[] mods = GetComponentsInChildren<Module>();
         foreach (Module m in mods)
         {
-            if((moduleMask & (int)m.type) != 0){
-                Debug.Log("Module " + m.type + " already exists!");
-                Destroy(m.gameObject);
-                continue;
-            }
-
-            m.ResetPos();
-            modules.Enqueue(m);
-            moduleMask |= (int)m.type;
+            LoadModule(m);
         }
+
 
         retireTimer = Random.Range(10, 25);
     }
@@ -60,26 +67,45 @@ public class SpaceShip : MonoBehaviour
         Module mod = m.GetComponent<Module>();
         if(mod == null) return;
 
-        // check if module already exists
-        if((moduleMask & (int)mod.type) != 0){
-            Debug.Log("Module " + mod.type + " already exists!");
-            // TODO: maybe add to inventory
-            Destroy(m);
-            return;
-        }
-
-        mod.transform.parent = this.transform;
-        mod.GetComponent<Collider2D>().enabled = false;
-        mod.ResetPos();
-        modules.Enqueue(mod);
-        moduleMask |= (int)mod.type;
+        LoadModule(mod);
     }
 
     private void RetireModule(){
         if(modules.Count == 0) return;
 
-        Module m = modules.Dequeue();
-        moduleMask &= ~(int)m.type;
+        Module m = modules[0];
         Destroy(m.gameObject);
+    }
+
+    void OnModuleDestroyed(Module m){
+        moduleMask &= ~(int)m.type;
+        modules.Remove(m);
+
+        Debug.Log("Module " + m.type + " destroyed!");
+    }
+
+    void OnHealthChange(Module m){
+        moduleUIs[m.type].UpdateHealthBar((int)m.health);
+    }
+
+    void LoadModule(Module mod){
+        // check if module already exists
+        if((moduleMask & (int)mod.type) != 0){
+            Debug.Log("Module " + mod.type + " already exists!");
+            // TODO: maybe add to inventory
+            Destroy(mod);
+            return;
+        }
+
+        mod.gameObject.layer = moduleLayer;
+        mod.transform.parent = this.transform;
+        modules.Add(mod);
+        mod.ResetPos();
+        mod.OnDestroyed += OnModuleDestroyed;
+        mod.OnHealthChange += OnHealthChange;
+        moduleMask |= (int)mod.type;
+
+        if(moduleUIs.ContainsKey(mod.type))
+            moduleUIs[mod.type].UpdateModule(mod.control, mod.health);
     }
 }
