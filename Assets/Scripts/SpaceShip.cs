@@ -20,6 +20,7 @@ public class SpaceShip : MonoBehaviour
     [SerializeField] GameObject shipUI;
 
     Dictionary<ModuleType, ModuleUI> moduleUIs;
+    public List<GameObject> inventory;
     public List<Module> modules;
     int moduleMask = 0;
     int moduleLayer = 7;
@@ -35,6 +36,7 @@ public class SpaceShip : MonoBehaviour
             if(moduleUIs.ContainsKey(m.type)) Debug.LogError("ModuleUI " + m.type + " already exists!");
             moduleUIs.Add(m.type, m);
             m.UpdateInventory(0);
+            m.OnReplacement += OnReplaceModule;
         }
 
         modules = new List<Module>();
@@ -44,7 +46,7 @@ public class SpaceShip : MonoBehaviour
             LoadModule(m);
         }
 
-
+        inventory = new List<GameObject>();
         retireTimer = Random.Range(10, 25);
     }
 
@@ -81,6 +83,9 @@ public class SpaceShip : MonoBehaviour
         moduleMask &= ~(int)m.type;
         modules.Remove(m);
 
+        if(moduleUIs.ContainsKey(m.type))
+            moduleUIs[m.type].UpdateModule(KeyCode.None, 0);
+
         Debug.Log("Module " + m.type + " destroyed!");
     }
 
@@ -88,12 +93,27 @@ public class SpaceShip : MonoBehaviour
         moduleUIs[m.type].UpdateHealthBar((int)m.health);
     }
 
+    void OnReplaceModule(ModuleType type){
+        for(int i = 0; i < inventory.Count; i++){
+            if(inventory[i].GetComponent<Module>().type == type){
+                GameObject g = inventory[i];
+                g.SetActive(true);
+                inventory.RemoveAt(i);
+                LoadModule(g.GetComponent<Module>());
+                return;
+            }
+        }
+    }
+
     void LoadModule(Module mod){
         // check if module already exists
         if((moduleMask & (int)mod.type) != 0){
             Debug.Log("Module " + mod.type + " already exists!");
             // TODO: maybe add to inventory
-            Destroy(mod);
+            inventory.Add(mod.gameObject);
+            if(moduleUIs.ContainsKey(mod.type))
+                moduleUIs[mod.type].UpdateInventory(1);
+            mod.gameObject.SetActive(false);
             return;
         }
 
