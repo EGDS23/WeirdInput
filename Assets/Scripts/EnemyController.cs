@@ -12,6 +12,7 @@ public class EnemyController : MonoBehaviour
     public float patrolRange;
     public bool isPatrol;
 
+    protected GameObject attackTarget;
     private Transform player;
     private bool isChasing;
     private Vector2 patrolTarget;
@@ -39,7 +40,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    void DetectPlayer()
+    bool DetectPlayer()
     {
         Collider2D[] detectedPlayer = Physics2D.OverlapCircleAll(transform.position, viewRadius, playerLayer);
 
@@ -51,10 +52,25 @@ public class EnemyController : MonoBehaviour
         {
             isChasing = false;
         }
+
+        var colliders = Physics.OverlapSphere(transform.position, viewRadius); // var代表所有类型
+
+        foreach (var target in colliders)
+        {
+            if (target.CompareTag("Player"))
+            {
+                attackTarget = target.gameObject;
+                return true;
+            }
+        }
+
+        attackTarget = null;
+        return false;
     }
 
     void ChasePlayer()
     {
+        transform.LookAt(attackTarget.transform);
         Vector2 direction = (player.position - transform.position).normalized;
         transform.position += (Vector3)direction * chaseSpeed * Time.deltaTime;
     }
@@ -75,5 +91,11 @@ public class EnemyController : MonoBehaviour
     void SetNewPatrolTarget()
     {
         patrolTarget = (Vector2)transform.position + Random.insideUnitCircle * patrolRange;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // TODO: health--
+        Destroy(gameObject);
     }
 }
