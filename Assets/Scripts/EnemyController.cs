@@ -57,7 +57,7 @@ public class EnemyController : MonoBehaviour
 
         foreach (var target in colliders)
         {
-            if (target.CompareTag("Player"))
+            if (target.CompareTag("ship"))
             {
                 attackTarget = target.gameObject;
                 return true;
