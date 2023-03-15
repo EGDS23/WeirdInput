@@ -117,6 +117,8 @@ public class SpaceShip : MonoBehaviour
             return;
         }
 
+        if(modules.Count == 0) retireTimer = Random.Range(10, 25);
+
         mod.gameObject.layer = moduleLayer;
         mod.transform.parent = this.transform;
         modules.Add(mod);
