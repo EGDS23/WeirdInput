@@ -70,7 +70,7 @@ public class EnemyController : MonoBehaviour
 
     void ChasePlayer()
     {
-        transform.LookAt(attackTarget.transform);
+        //transform.LookAt(attackTarget.transform);
         Vector2 direction = (player.position - transform.position).normalized;
         transform.position += (Vector3)direction * chaseSpeed * Time.deltaTime;
     }
