@@ -6,10 +6,10 @@ using TMPro;
 
 public class ModuleUI : MonoBehaviour
 {
-    TMP_Text Key;
-    TMP_Text Inventory;
+    [SerializeField] TMP_Text Key;
+    [SerializeField] TMP_Text Inventory;
+    [SerializeField] Image HealthBar;
     int inventoryCount = 0;
-    Image HealthBar;
     int maxHealth;
     public ModuleType type;
 
@@ -18,15 +18,17 @@ public class ModuleUI : MonoBehaviour
 
     void Start()
     {
-        Key = transform.Find("Key").GetComponent<TMP_Text>();
-        Inventory = transform.Find("Inventory").GetComponent<TMP_Text>();
-        HealthBar = transform.Find("HP").GetComponent<Image>();
+        //Key = transform.Find("Key").GetComponent<TMP_Text>();
+        //Inventory = transform.Find("Inventory").GetComponent<TMP_Text>();
+        //HealthBar = transform.Find("HP").GetComponent<Image>();
 
+        inventoryCount = 0;
         Key.text = KeyCode.None.ToString();
         Inventory.text = inventoryCount.ToString();
     }
 
     public void UpdateModule(KeyCode key, int hp){
+        Debug.Log("Updated with key" + key);
         Key.text = key.ToString();
         maxHealth = hp;
         HealthBar.fillAmount = 1;

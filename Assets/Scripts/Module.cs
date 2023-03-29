@@ -27,6 +27,7 @@ public abstract class Module : MonoBehaviour
 
     public void Start() {
         source = GetComponent<AudioSource>();
+        health = 3;
         ResetPos();
     }
 

@@ -152,11 +152,12 @@ public class SpaceShip : MonoBehaviour
         mod.OnHealthChange += OnHealthChange;
         moduleMask |= (int)mod.type;
 
+        if(moduleUIs.ContainsKey(mod.type))
+            moduleUIs[mod.type].UpdateModule(mod.control, mod.health);
+
         source.clip = installclip;
         source.Play();
 
-        if(moduleUIs.ContainsKey(mod.type))
-            moduleUIs[mod.type].UpdateModule(mod.control, mod.health);
     }
 
     public void EndGame(){

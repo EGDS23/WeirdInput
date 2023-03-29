@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 1970843608718211578}
   - component: {fileID: 1970843608718211577}
   - component: {fileID: 1970843608718211581}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Guard Enemy
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -92,7 +92,7 @@ MonoBehaviour:
   patrolSpeed: 2
   patrolRange: 5
   isPatrol: 0
-  modulePrefab: {fileID: 5528068183794418497, guid: ab7fe5ac8b79b2b4da13bfae15bb531e, type: 3}
+  modulePrefab: {fileID: 8960224164318913534, guid: ba31451d6dbdf5449a57946480fbe605, type: 3}
 --- !u!1001 &1898311118100290372
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -159,6 +159,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 556c6758e90b93e4a859a23ecc0e6087, type: 3}
       propertyPath: m_Name
       value: Enemy1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 556c6758e90b93e4a859a23ecc0e6087, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 556c6758e90b93e4a859a23ecc0e6087, type: 3}
       propertyPath: m_IsActive

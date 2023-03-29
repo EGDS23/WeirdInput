@@ -97,6 +97,8 @@ public class EnemyController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag("bullet") == false) return;
+
         Vector3 pos = transform.position;
         Destroy(gameObject);
         Instantiate(modulePrefab, pos, Quaternion.identity);

@@ -231,6 +231,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8555d5b1118983e409f68abe644a903c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Key: {fileID: 4327145904898150406}
+  Inventory: {fileID: 4327145906027363646}
+  HealthBar: {fileID: 4327145905251869493}
   type: 4
 --- !u!114 &915101038
 MonoBehaviour:
