@@ -7,7 +7,7 @@ public class Weapon : Module
     public ModuleUI ui;
     private int ammoIndex = 0;
     public GameObject bullet;
-    public void Awake() {
+    public void Start() {
         if(control == KeyCode.None || !ammos.Contains(control)) {
             control = ammos[Random.Range(0, ammos.Count)];
             ui.UpdateKey(control);
@@ -25,7 +25,6 @@ public class Weapon : Module
         control = ammos[ammoIndex];
 
         ui.UpdateKey(control);
-        Debug.Log("Shoot");
         Instantiate(bullet, ship.transform.position, ship.transform.rotation);
     }
 }

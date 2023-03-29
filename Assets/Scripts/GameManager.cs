@@ -1,14 +1,22 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject enemyPrefab;
+    public GameObject[] moduleDropList;
     public Transform player;
     public float spawnRadius;
     public float minSpawnDistance;
     public float spawnInterval;
+
+    private readonly KeyCode[] _keyCodes = { KeyCode.A, KeyCode.D,KeyCode.E, KeyCode.F, KeyCode.G, KeyCode.H, KeyCode.I, 
+        KeyCode.J,KeyCode.K, KeyCode.L, KeyCode.O, KeyCode.P,KeyCode.Q, KeyCode.R, KeyCode.S, KeyCode.T, KeyCode.U, 
+        KeyCode.W,KeyCode.Y};
 
     void Start()
     {
@@ -27,8 +35,18 @@ public class GameManager : MonoBehaviour
                 foundValidPosition = true;
             }
         }
-
+        
+        // random module and random key
+        GameObject randModuleDrop = moduleDropList[Random.Range(0, moduleDropList.Length - 1)];
+        Module md = randModuleDrop.GetComponent<Module>();
+        if (md.type != ModuleType.Weapon)
+        {
+            md.control = _keyCodes[Random.Range(0, _keyCodes.Length-1)];
+        }
+        enemyPrefab.GetComponent<EnemyController>().modulePrefab = randModuleDrop;
+        
         Instantiate(enemyPrefab, randomPosition, Quaternion.identity);
     }
+    
 }
 
