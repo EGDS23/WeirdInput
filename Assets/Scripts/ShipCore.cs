@@ -7,7 +7,7 @@ public class ShipCore : MonoBehaviour
     public SpaceShip ship;
     private void OnCollisionEnter(Collision other) {
         if(other.gameObject.tag == "Enemy"){
-            // ship.EndGame();
+            ship.EndGame();
         }
     }
 }

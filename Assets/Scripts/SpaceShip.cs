@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public enum ModuleType
@@ -29,12 +30,16 @@ public class SpaceShip : MonoBehaviour
     float retireTimer = 0;
 
     public GameObject explosion;
-    AudioSource source;
+    public AudioSource source;
     public AudioClip retireclip;
     public AudioClip installclip;
+
+
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("Starting ship");
+        source = GetComponent<AudioSource>();
         moduleUIs = new Dictionary<ModuleType, ModuleUI>();
         ModuleUI[] ui = shipUI.GetComponentsInChildren<ModuleUI>();
         foreach (ModuleUI m in ui)
@@ -44,6 +49,7 @@ public class SpaceShip : MonoBehaviour
             m.UpdateInventory(0);
             m.OnReplacement += OnReplaceModule;
         }
+        Debug.Log("Loaded " + moduleUIs.Count + " module UIs");
 
         modules = new List<Module>();
         Module[] mods = GetComponentsInChildren<Module>();
@@ -51,10 +57,13 @@ public class SpaceShip : MonoBehaviour
         {
             LoadModule(m);
         }
+        Debug.Log("Loaded " + modules.Count + " modules");
 
         inventory = new List<GameObject>();
         retireTimer = Random.Range(10, 25);
-        source = GetComponent<AudioSource>();
+
+        if(core == null) Debug.LogError("No core found!");
+        core.ship = this;
     }
 
     void Update()
@@ -147,5 +156,9 @@ public class SpaceShip : MonoBehaviour
 
         if(moduleUIs.ContainsKey(mod.type))
             moduleUIs[mod.type].UpdateModule(mod.control, mod.health);
+    }
+
+    public void EndGame(){
+        SceneManager.LoadScene("GameOver");
     }
 }
