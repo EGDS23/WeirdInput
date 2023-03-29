@@ -99,12 +99,13 @@ public class SpaceShip : MonoBehaviour
 
     void OnModuleDestroyed(Module m){
         moduleMask &= ~(int)m.type;
+        Instantiate(explosion, m.transform.position, m.transform.rotation);
         modules.Remove(m);
 
         if(moduleUIs.ContainsKey(m.type))
             moduleUIs[m.type].UpdateModule(KeyCode.None, 0);
 
-        Instantiate(explosion);
+        
         Debug.Log("Module " + m.type + " destroyed!");
     }
 

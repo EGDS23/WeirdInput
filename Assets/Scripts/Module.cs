@@ -22,8 +22,12 @@ public abstract class Module : MonoBehaviour
     public delegate void OnDamageHandler(Module mod);
     public event OnDamageHandler OnHealthChange;
 
+    public AudioSource source;
+    public AudioClip hit;
+
     private void Start() {
         ResetPos();
+        source = GetComponent<AudioSource>();
     }
 
     public void ResetPos(){
@@ -44,6 +48,8 @@ public abstract class Module : MonoBehaviour
             health -= 1;
             if(OnHealthChange != null) OnHealthChange(this);
             Debug.Log("Module " + type + " hit!");
+            source.clip = hit;
+            source.Play();
         }    
         if(health <= 0) Destroy(this.gameObject);
     }
