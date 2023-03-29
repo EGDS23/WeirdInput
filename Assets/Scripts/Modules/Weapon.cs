@@ -25,7 +25,7 @@ public class Weapon : Module
         control = ammos[ammoIndex];
 
         ui.UpdateKey(control);
-
+        Debug.Log("Shoot");
         Instantiate(bullet, ship.transform.position, ship.transform.rotation);
     }
 }
