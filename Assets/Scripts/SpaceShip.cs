@@ -129,6 +129,11 @@ public class SpaceShip : MonoBehaviour
 
         if(modules.Count == 0) retireTimer = Random.Range(10, 25);
 
+        if(mod.type == ModuleType.Weapon){
+            Weapon w = mod as Weapon;
+            w.ui = moduleUIs[mod.type];
+        }
+
         mod.gameObject.layer = moduleLayer;
         mod.transform.parent = this.transform;
         modules.Add(mod);
