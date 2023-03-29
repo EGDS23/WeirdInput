@@ -4,14 +4,23 @@ using UnityEngine;
 
 public class RightWing : Module
 {
-    private ParticleSystem[] _engineVFX;
+    private ParticleSystem _engineVFX;
     private void Awake()
     {
-        _engineVFX = gameObject.GetComponents<ParticleSystem>();
+        _engineVFX = gameObject.GetComponentInChildren<ParticleSystem>();
     }
-
+    
+    private void Start()
+    {
+        _engineVFX.Stop();
+    }
+    
     public override void Action()
     {
-        ship.transform.Rotate(Vector3.back * constant * Time.deltaTime);
+        ship.transform.Rotate(Vector3.forward * constant * Time.deltaTime);
+        if (!_engineVFX.isEmitting)
+        {
+            _engineVFX.Play();
+        }
     }
 }
