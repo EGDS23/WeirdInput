@@ -2,8 +2,15 @@ using UnityEngine;
 
 public class Special : Module
 {
+    [SerializeField] int count = 3;
     public override void Action()
     {
-        ship.transform.Rotate(Vector3.back * constant * Time.deltaTime);
+        // teleport
+        ship.transform.position += Vector3.up * constant;
+        count--;
+
+        if(count <= 0) {
+            Destroy(gameObject);
+        }
     }
 }
