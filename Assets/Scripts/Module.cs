@@ -25,12 +25,12 @@ public abstract class Module : MonoBehaviour
     public AudioSource source;
     public AudioClip hit;
 
-    private void Start() {
-        ResetPos();
+    public void Start() {
         source = GetComponent<AudioSource>();
+        ResetPos();
     }
 
-    public void ResetPos(){
+    public virtual void ResetPos(){
         var tmp = this.transform.parent;
         if(tmp != null && tmp.gameObject.CompareTag("ship")) ship = tmp.gameObject;
         if(ship != null) {

@@ -7,15 +7,20 @@ public class Weapon : Module
     public ModuleUI ui;
     private int ammoIndex = 0;
     public GameObject bullet;
-    public void Start() {
-        if(control == KeyCode.None || !ammos.Contains(control)) {
+
+    public override void ResetPos()
+    {
+        base.ResetPos();
+        if (ui == null) return;
+        if (control == KeyCode.None || !ammos.Contains(control))
+        {
             control = ammos[Random.Range(0, ammos.Count)];
             ui.UpdateKey(control);
         }
-        else {
+        else
+        {
             ammoIndex = ammos.IndexOf(control);
         }
-
     }
 
     public override void Action()

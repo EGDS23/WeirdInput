@@ -92,7 +92,7 @@ MonoBehaviour:
   patrolSpeed: 2
   patrolRange: 5
   isPatrol: 0
-  modulePrefab: {fileID: 7777001885134071415, guid: e6cc10092f2ffba41925959bf219acfb, type: 3}
+  modulePrefab: {fileID: 5528068183794418497, guid: ab7fe5ac8b79b2b4da13bfae15bb531e, type: 3}
 --- !u!1001 &1898311118100290372
 PrefabInstance:
   m_ObjectHideFlags: 0

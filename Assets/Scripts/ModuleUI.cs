@@ -34,6 +34,7 @@ public class ModuleUI : MonoBehaviour
 
     public void UpdateInventory(int count){
         inventoryCount += count;
+        Debug.Log(Inventory.text);
         Inventory.text = inventoryCount.ToString();
     }
 

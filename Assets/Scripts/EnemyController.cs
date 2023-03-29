@@ -55,7 +55,7 @@ public class EnemyController : MonoBehaviour
             isChasing = false;
         }
 
-        var colliders = Physics.OverlapSphere(transform.position, viewRadius); // var´ú±íËùÓÐÀàÐÍ
+        var colliders = Physics.OverlapSphere(transform.position, viewRadius); // varï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
         foreach (var target in colliders)
         {
