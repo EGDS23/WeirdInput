@@ -59,14 +59,14 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1970843608718211576}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -93,6 +93,7 @@ MonoBehaviour:
   patrolRange: 5
   isPatrol: 0
   modulePrefab: {fileID: 8960224164318913534, guid: ba31451d6dbdf5449a57946480fbe605, type: 3}
+  gameManager: {fileID: 0}
 --- !u!1001 &1898311118100290372
 PrefabInstance:
   m_ObjectHideFlags: 0

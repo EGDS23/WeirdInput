@@ -16,13 +16,14 @@ public class ModuleUI : MonoBehaviour
     public delegate void OnReplacementHandler(ModuleType type);
     public event OnReplacementHandler OnReplacement;
 
-    void Start()
+    void Awake()
     {
         //Key = transform.Find("Key").GetComponent<TMP_Text>();
         //Inventory = transform.Find("Inventory").GetComponent<TMP_Text>();
         //HealthBar = transform.Find("HP").GetComponent<Image>();
 
         inventoryCount = 0;
+        Debug.Log("init");
         Key.text = KeyCode.None.ToString();
         Inventory.text = inventoryCount.ToString();
     }

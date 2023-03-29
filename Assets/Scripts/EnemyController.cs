@@ -13,15 +13,20 @@ public class EnemyController : MonoBehaviour
     public bool isPatrol;
     public GameObject modulePrefab;
 
+    public GameManager gameManager;
+
     protected GameObject attackTarget;
     private Transform player;
     private bool isChasing;
     private Vector2 patrolTarget;
 
+
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("ship").transform;
         isChasing = false;
+        gameManager = GameObject.FindObjectOfType<GameManager>();
         SetNewPatrolTarget();
     }
 
@@ -97,11 +102,11 @@ public class EnemyController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("bullet") == false) return;
-
+        // if (collision.gameObject.CompareTag("bullet") == false) return;
         Vector3 pos = transform.position;
-        Destroy(gameObject);
+        gameManager.scorePlusOne();
         Instantiate(modulePrefab, pos, Quaternion.identity);
+        Destroy(this.gameObject);
 
         //Destroy(gameObject);
     }
