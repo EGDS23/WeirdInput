@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.19007409, g: 0.2318072, b: 0.19940564, a: 1}
+  m_IndirectSpecularColor: {r: 0.18959248, g: 0.23062879, b: 0.19839135, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -256,6 +256,7 @@ MonoBehaviour:
   rot: {x: 0, y: 0, z: 0, w: 0}
   constant: 5
   health: 3
+  count: 3
 --- !u!212 &231530547
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -598,6 +599,7 @@ GameObject:
   - component: {fileID: 454876615}
   - component: {fileID: 454876614}
   - component: {fileID: 454876613}
+  - component: {fileID: 454876617}
   m_Layer: 6
   m_Name: SpaceShip
   m_TagString: ship
@@ -621,6 +623,9 @@ MonoBehaviour:
   shipUI: {fileID: 0}
   inventory: []
   modules: []
+  explosion: {fileID: 3146180892167145127, guid: 9306a2dd4333ba54a89af96008f61e13, type: 3}
+  retireclip: {fileID: 8300000, guid: 8f37e3858a68f1146bf3b848086c9412, type: 3}
+  installclip: {fileID: 8300000, guid: af290ab4925dc424d82854875105fe76, type: 3}
 --- !u!61 &454876614
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -688,6 +693,102 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &454876617
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 454876612}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &461229303
 GameObject:
   m_ObjectHideFlags: 0
@@ -1771,6 +1872,7 @@ MonoBehaviour:
   rot: {x: 0, y: 0, z: 0, w: 0}
   constant: 5
   health: 3
+  count: 3
 --- !u!212 &1588431933
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1962,6 +2064,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 910c66308f704454ab43935f890342de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ship: {fileID: 0}
 --- !u!61 &1626432341
 BoxCollider2D:
   m_ObjectHideFlags: 0

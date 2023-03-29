@@ -14,6 +14,8 @@ public enum ModuleType
 }
 
 
+
+
 public class SpaceShip : MonoBehaviour
 {
     [SerializeField] ShipCore core;
@@ -25,7 +27,11 @@ public class SpaceShip : MonoBehaviour
     int moduleMask = 0;
     int moduleLayer = 7;
     float retireTimer = 0;
-    
+
+    public GameObject explosion;
+    AudioSource source;
+    public AudioClip retireclip;
+    public AudioClip installclip;
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +54,7 @@ public class SpaceShip : MonoBehaviour
 
         inventory = new List<GameObject>();
         retireTimer = Random.Range(10, 25);
+        source = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -77,6 +84,8 @@ public class SpaceShip : MonoBehaviour
 
         Module m = modules[0];
         Destroy(m.gameObject);
+        source.clip = retireclip;
+        source.Play();
     }
 
     void OnModuleDestroyed(Module m){
@@ -86,6 +95,7 @@ public class SpaceShip : MonoBehaviour
         if(moduleUIs.ContainsKey(m.type))
             moduleUIs[m.type].UpdateModule(KeyCode.None, 0);
 
+        Instantiate(explosion);
         Debug.Log("Module " + m.type + " destroyed!");
     }
 
@@ -126,6 +136,9 @@ public class SpaceShip : MonoBehaviour
         mod.OnDestroyed += OnModuleDestroyed;
         mod.OnHealthChange += OnHealthChange;
         moduleMask |= (int)mod.type;
+
+        source.clip = installclip;
+        source.Play();
 
         if(moduleUIs.ContainsKey(mod.type))
             moduleUIs[mod.type].UpdateModule(mod.control, mod.health);
