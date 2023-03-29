@@ -42,6 +42,10 @@ public class ModuleUI : MonoBehaviour
         HealthBar.fillAmount = Mathf.Clamp((float)health / maxHealth, 0, 1f);
     }
 
+    public void UpdateKey(KeyCode key){
+        Key.text = key.ToString();
+    }
+
     public void ReplaceMod(){
         if(inventoryCount <= 0) return;
         // only replace if module is destroyed

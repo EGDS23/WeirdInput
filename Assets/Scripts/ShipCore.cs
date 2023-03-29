@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class ShipCore : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public SpaceShip ship;
+    private void OnCollisionEnter(Collision other) {
+        if(other.gameObject.tag == "Enemy"){
+            // ship.EndGame();
+        }
     }
 }
