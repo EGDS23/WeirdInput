@@ -11,6 +11,7 @@ public class EnemyController : MonoBehaviour
     public float patrolSpeed;
     public float patrolRange;
     public bool isPatrol;
+    public GameObject modulePrefab;
 
     protected GameObject attackTarget;
     private Transform player;
@@ -47,6 +48,7 @@ public class EnemyController : MonoBehaviour
         if (detectedPlayer.Length > 0)
         {
             isChasing = true;
+            transform.LookAt(player.position);
         }
         else
         {
@@ -95,7 +97,10 @@ public class EnemyController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // TODO: health--
+        Vector3 pos = transform.position;
         Destroy(gameObject);
+        Instantiate(modulePrefab, pos, Quaternion.identity);
+
+        //Destroy(gameObject);
     }
 }
